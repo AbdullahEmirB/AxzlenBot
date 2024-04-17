@@ -65,6 +65,7 @@ async def yardım(ctx):
     await ctx.send(f'sifre = Rastgele Şifre Oluşturur.')
     await ctx.send(f'komikgif = Rastgele Komik GIFler Atar.')
     await ctx.send(f'hava [şehir] = İstediginiz Şehirin Hava Durumunu Gösterir.')
+    await ctx.send(f'şaka = Rastgele Şakalar Yapar.')
 
 #-----------------------------------------------------------------------------
 
@@ -227,6 +228,25 @@ async def hava(ctx, *, city: str):
 
 #-----------------------------------------------------------------------------
 
+def get_random_joke():
+    """icanhazdadjoke API'Sini Kullanarak Rastgele Bir Şaka Alır."""
+    url = "https://icanhazdadjoke.com/"
+    headers = {"Accept": "application/json"}
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        data = response.json()
+        return data["joke"]
+    else:
+        return "Üzgünüm, Bir Şaka Alırken Bir Hata Oluştu. Lütfen Daha Sonra Tekrar Deneyin."
+
+@bot.command()
+async def şaka(ctx):
+    """Rastgele Bir Şaka Gönderir."""
+    joke = get_random_joke()
+    await ctx.send(joke)
+
+#-----------------------------------------------------------------------------
+
 bot.run(token)
 
-
+# Yapımcı = Abdullah Emir B.
