@@ -66,6 +66,7 @@ async def yardım(ctx):
     await ctx.send(f'komikgif = Rastgele Komik GIFler Atar.')
     await ctx.send(f'hava [şehir] = İstediginiz Şehirin Hava Durumunu Gösterir.')
     await ctx.send(f'şaka = Rastgele Şakalar Yapar.')
+    await ctx.send(f'söz = Rastgele Özlü Söz Gönderir.')
 
 #-----------------------------------------------------------------------------
 
@@ -244,6 +245,21 @@ async def şaka(ctx):
     """Rastgele Bir Şaka Gönderir."""
     joke = get_random_joke()
     await ctx.send(joke)
+
+#-----------------------------------------------------------------------------
+
+def get_random_quote():
+    """Zenquotes API'si İle Özlü Söz Alır."""
+    response = requests.get("https://zenquotes.io/api/random")
+    data = response.json()
+    quote = data[0]['q'] + " - " + data[0]['a']
+    return quote
+
+@bot.command()
+async def soz(ctx):
+    """Rastgele Bir Özlü Söz Gönderir."""
+    quote = get_random_quote()
+    await ctx.send(quote)
 
 #-----------------------------------------------------------------------------
 
